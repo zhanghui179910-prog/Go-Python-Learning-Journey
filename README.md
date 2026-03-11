@@ -31,3 +31,30 @@ func (u *User) AddCheckin() {
 }
 
 】
+
+```
+
+2026-3-11
+【
+DataExporter 多态导出器
+
+## 项目简介
+本项目是从 Python 思维转向 Go 面向接口编程的实战练习。通过构建一个统一的数据导出系统，深度实践了 Go 语言的核心特性：接口（Interface）、鸭子类型（Duck Typing）以及规范的错误处理。
+
+## 核心功能
+* **面向接口设计**：定义了全局标准的 `DataExporter` 接口。
+* **JSON 持久化导出**：实现了 `JSONExporter`，利用 `encoding/json` 与 `os.WriteFile`，将内存数据真正落地为带缩进格式的本地 `.json` 文件。
+* **CSV 模拟与类型断言**：实现了 `CSVExporter`，演示了如何使用 `switch data.(type)` 作为类型扫描仪，精准识别空接口 `any` 传入的底层数据结构（如 `map[string]string`）。
+* **容灾拦截演示**：在代码中故意制造致命逻辑错误触发 `panic`，并通过 `defer func() { recover() }` 成功抢救，保证主程序循环不中断。
+
+## 技术栈与知识点
+- **Go Duck Typing**: 隐式接口实现，体会组件解耦的快乐。
+- [解耦，就是把系统中原本“绑死”在一起的模块拆分开来，让它们通过“标准的接口”进行交流。这样，无论你怎么修改、替换、增加其中一个模块，其他模块都完全不需要跟着改动。]
+- **Error Handling**: 抛弃传统 `try-catch`，践行 `if err != nil` 的错误即值哲学。
+- **Panic & Recover**: 模拟服务器级别的紧急避险与执行流恢复。
+
+## 运行方式
+```bash
+go run exporter.go
+```
+】
